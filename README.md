@@ -21,5 +21,6 @@ grunt deploy:heroku
 ## Backend
 * https://github.com/ismarslomic/ads-cms-backend
 
-## Heroku application
-* http://ads-cms-frontend.herokuapp.com/
+## Heroku
+* Heroku application: http://ads-cms-frontend.herokuapp.com/
+* Heroku GIT: git@heroku.com:ads-cms-frontend.git
