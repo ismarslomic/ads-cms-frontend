@@ -29,6 +29,7 @@ module.exports = function (grunt) {
     var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
     //grunt.loadNpmTasks('grunt-connect-proxy');
     grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-shell');
 
     try {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
@@ -37,6 +38,34 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        shell: {
+            deployHeroku: {
+                options: {
+                    stdout: true,
+                    execOptions: {
+                        cwd: '<%= yeoman.distHeroku%>'
+                    }
+                },
+                command: [
+                    'git add .',
+                    'git commit -m "See commit messages in the Github repository"',
+                    'git push origin master'
+                ].join('&&')
+            },
+            runHeroku: {
+                options: {
+                    stdout: true,
+                    execOptions: {
+                        cwd: '<%= yeoman.distHeroku%>'
+                    }
+                },
+                command: [
+                    'heroku ps:scale web=1',
+                    'heroku open'
+                ].join('&&')
+            }
+
+        },
         jade: {
             dist: {
                 options: {
@@ -159,7 +188,8 @@ module.exports = function (grunt) {
                     {
                         dot: true,
                         src: [
-                            '<%= yeoman.distHeroku %>/*'
+                            '<%= yeoman.distHeroku %>/*',
+                            '!<%= yeoman.distHeroku %>/.git*'
                         ]
                     }
                 ]
@@ -431,10 +461,19 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('build:heroku',[
+    grunt.registerTask('build:heroku', [
         'clean:distHeroku',
         'build',
         'copy:distHeroku'
+    ]);
+
+    grunt.registerTask('deploy:heroku', [
+        'build:heroku',
+        'shell:deployHeroku'
+    ]);
+
+    grunt.registerTask('run:heroku', [
+        'shell:runHeroku'
     ]);
 
     grunt.registerTask('default', [
