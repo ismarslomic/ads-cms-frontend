@@ -10,7 +10,8 @@
 ```
 git clone https://github.com/ismarslomic/ads-cms-frontend.git
 cd ads-cms-frontend
-heroku git:clone -a 
+heroku login // only first time
+git clone git@heroku.com:ads-cms-frontend.git distHeroku
 npm install
 grunt build
 grunt build:heroku
@@ -18,4 +19,7 @@ grunt deploy:heroku
 ```
 
 ## Backend
-https://github.com/ismarslomic/ads-cms-backend
+* https://github.com/ismarslomic/ads-cms-backend
+
+## Heroku application
+* http://ads-cms-frontend.herokuapp.com/
