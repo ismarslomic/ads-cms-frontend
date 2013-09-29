@@ -14,9 +14,11 @@ heroku login // only first time
 git clone git@heroku.com:ads-cms-frontend.git distHeroku
 npm install
 grunt build
-grunt build:heroku
-grunt deploy:heroku
 ```
+
+## Grunt tasks
+* ``` grunt build:heroku ``` - builds and optimization of the code in app folder. Destination folder is distHeroku
+* ``` grunt deploy:heroku ``` - deploy of distHeroku to Heroku application [ads-cms-frontend](http://ads-cms-frontend.herokuapp.com/)
 
 ## Backend
 * https://github.com/ismarslomic/ads-cms-backend
