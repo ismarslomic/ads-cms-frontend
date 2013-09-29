@@ -13,7 +13,10 @@ cd ads-cms-frontend
 heroku login // only first time
 git clone git@heroku.com:ads-cms-frontend.git distHeroku
 npm install
-grunt build
+grunt build:heroku
+cd distHeroku
+node server
+open in web browser http://localhost:5000/
 ```
 
 ## Grunt tasks
