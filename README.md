@@ -1,11 +1,8 @@
 # Accenture Digital Signage Frontend
 
 ## Prerequisites
-NodeJS
-npm
-bower
-grunt
-[Heroku Toolbelt](https://toolbelt.heroku.com/)
+* [NodeJS and npm](http://nodejs.org/download/)
+* [Heroku Toolbelt](https://toolbelt.heroku.com/)
 
 
 ## Getting started
