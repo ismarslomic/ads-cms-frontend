@@ -17,8 +17,9 @@ npm install
 grunt build:heroku
 cd distHeroku
 node server
-open in web browser http://localhost:5000/
 ```
+
+You should be able to see the ADS CMS by open a web browser and going to http://localhost:5000/
 
 ## Grunt tasks
 * ``` grunt build:heroku ``` - builds and optimization of the code in app folder. Destination folder is distHeroku
