@@ -19,7 +19,7 @@ cd distHeroku
 node server
 ```
 
-You should be able to see the ADS CMS by open a web browser and going to http://localhost:5000/
+You should be able to see the ADS CMS by open a web browser and go to [http://localhost:5000/](http://localhost:5000/)
 
 ## Grunt tasks
 * ``` grunt build:heroku ``` - builds and optimization of the code in app folder. Destination folder is distHeroku
