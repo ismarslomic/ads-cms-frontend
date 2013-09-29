@@ -3,6 +3,7 @@
 ## Prerequisites
 * [NodeJS and npm](http://nodejs.org/download/)
 * [Heroku Toolbelt](https://toolbelt.heroku.com/)
+* [A Heroku user account](https://devcenter.heroku.com/articles/quickstart) (see step 1,2 and 3)
 
 
 ## Getting started
