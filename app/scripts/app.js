@@ -1,13 +1,12 @@
 'use strict';
 
-angular.module('adsCmsFrontendApp', [])
-  .config(['$routeProvider', function ($routeProvider) {
+var frontendApp = angular.module('adsCmsFrontendApp', ['ngResource', 'ngRoute'])
+  .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
+        templateUrl: 'views/partials/list.html',
+        controller: 'MediaPlayerController'
+      }).otherwise({
         redirectTo: '/'
       });
   }]);
