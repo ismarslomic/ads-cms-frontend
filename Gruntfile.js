@@ -30,6 +30,7 @@ module.exports = function (grunt) {
     //grunt.loadNpmTasks('grunt-connect-proxy');
     grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-express-server');
 
     try {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
@@ -38,6 +39,16 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        express: {
+            options: {
+                // Override defaults here
+            },
+            dev: {
+                options: {
+                    script: 'server.js'
+                }
+            }
+        },
         shell: {
             deployHeroku: {
                 options: {
@@ -93,20 +104,6 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            jade: {
-                files: [
-                    '<%= yeoman.app %>/**/*.jade'
-                ],
-                tasks: ['jade']
-            },
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
-            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
@@ -116,13 +113,22 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    '<%= yeoman.app %>/{,*/}*.html',
-                    '<%= yeoman.app %>/views/partials/*',
-                    '<%= yeoman.app %>/views/*',
-                    '.tmp/styles/{,*/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= yeoman.dist %>/**',
                 ]
+            },
+            express: {
+                files:  [
+                    '<%= yeoman.app %>/*.jade'
+                ],
+                tasks:  [
+                    'jade',
+                    'copy:dist',
+                    'express:dev'
+                ],
+                options: {
+                    nospawn: true,  //Without this option specified express won't be reloaded
+                    livereload: true
+                }
             }
         },
         autoprefixer: {
@@ -140,7 +146,7 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: 9000,
+                port: 3000,
                 // Change this to '0.0.0.0' to access the server from outside.
                 hostname: 'localhost'
             },
@@ -432,22 +438,12 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('server', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        }
-
-        grunt.task.run([
-            'clean:server',
-            'concurrent:server',
-            'autoprefixer',
-            'configureProxies',
-            'jade',
-            'connect:livereload',
-            'open',
-            'watch'
-        ]);
-    });
+    grunt.registerTask('server', [
+        'build',
+        'express:dev',
+        //'connect:dist:keepalive',
+        'watch'
+    ]);
 
     grunt.registerTask('test', [
         'clean:server',
