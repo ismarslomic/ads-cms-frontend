@@ -1,4 +1,12 @@
 div.panel(style="padding: 40px")
     div.row.panel-heading
-        p Test: {{test}}
-        
+        table.table.table-hover.table-striped
+            thead
+                tr
+                    th(ng-class="headerStyle('name')") Name
+                    th(ng-class="headerStyle('Location')") Location
+                    td
+            tr(ng-repeat="mediaPlayer in mediaPlayerList")
+                td {{ mediaPlayer.name }}
+                td Floor {{ mediaPlayer.location.floor}} in the {{mediaPlayer.location.zone}} zone.
+                thead
