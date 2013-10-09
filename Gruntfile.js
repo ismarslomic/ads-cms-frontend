@@ -20,9 +20,13 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
-    app: 'app',
-    dist: 'dist'
-  };
+        tmp: '.tmp',
+        app: 'app',
+        config: 'config',
+        dist: 'dist',
+        heroku: 'heroku',
+        distHeroku: 'distHeroku'
+    };
 
   try {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
@@ -41,7 +45,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
+        tasks: ['copy:styles', 'autoprefixer']  
       },
       livereload: {
         options: {
@@ -130,6 +134,15 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      distHeroku: {
+        files: [{
+            dot: true,
+            src: [
+                '<%= yeoman.distHeroku %>/*',
+                '!<%= yeoman.distHeroku %>/.git*'
+                    ]
+                }]
+            },
       server: '.tmp'
     },
     jshint: {
@@ -273,6 +286,28 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      distHeroku: {
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.dist %>',
+                        dest: '<%= yeoman.distHeroku %>',
+                        src: [
+                            './**/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.heroku %>',
+                        dest: '<%= yeoman.distHeroku %>',
+                        src: [
+                            './**/*'
+                        ]
+                    }
+                ]
+            },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -373,6 +408,11 @@ module.exports = function (grunt) {
     'rev',
     'usemin'
   ]);
+  grunt.registerTask('build:heroku', [
+        'clean:distHeroku',
+        'build',
+        'copy:distHeroku'
+    ]);
 
   grunt.registerTask('default', [
     'jshint',
