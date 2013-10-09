@@ -10,12 +10,15 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 // below is not on use when using res.sendfile
-app.use(gzippo.staticGzip(path.join(__dirname, 'app')));
+app.use("/scripts", gzippo.staticGzip(path.join(__dirname, '/scripts')));
+app.use("/styles", gzippo.staticGzip(path.join(__dirname, '/styles')));
+app.use("/bower_components", gzippo.staticGzip(path.join(__dirname, '/bower_components')));
+app.use("/views", gzippo.staticGzip(path.join(__dirname, '/views')));
 app.listen(app.get('port'));
 console.log("Server is listening on port " + app.get('port'));
 
 
 // Route "/" to app-/index.html
 app.get('/', function (req, res) {
-    res.sendfile('./app/index.html');
+    res.sendfile('index.html');
 });
