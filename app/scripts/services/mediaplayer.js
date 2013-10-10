@@ -28,7 +28,7 @@ adsCmsFrontendApp.factory('mediaplayerService', function ($resource, $q) {
    */
 
   var playerResource =
-    $resource('api/player/:id',
+    $resource('http://ads-cms-backend.herokuapp.com/api/player/:id',
         { id: '@_id' },
         { update: { method: 'PUT' } }
     );
