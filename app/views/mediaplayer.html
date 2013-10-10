@@ -44,7 +44,7 @@
                   class="btn btn-lg btn-info glyphicon glyphicon-floppy-disk" ng-click="savePlayer()"
                   ng-disabled="player == null">
                 </button>
-                <button type="button" class="btn  btn-lg btn-warning glyphicon glyphicon-remove" ng-click="toggleAddMode()">
+                <button type="button" class="btn  btn-lg btn-warning glyphicon glyphicon-remove" ng-click="editMode ? toggleEditMode() :  toggleAddMode()">
                 </button>
               </div>
             </div>
